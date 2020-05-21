@@ -85,4 +85,4 @@ stages:
               inputs:
                 azureSubscription: $(subscriptionConnection)
                 scriptLocation: 'inlineScript'
-                inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --r
+                inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --registry-password $(acrPassword)'
