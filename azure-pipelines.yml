@@ -25,11 +25,11 @@ variables:
   - name: acrRegistry
     value: 'registry.hub.docker.com'
   - name: subscriptionConnection
-    value: <SUBCRIPTION_CONNECTION_NAME>
+    value: 'Visual Studio Enterprise(d7106f86-a4e9-40ec-83d3-08b03cb7bcbf)'
   - name: containerGroup
-    value: <CONTAINER GROUP>
+    value: 'Webgoat-Container-Group'
   - name: containerDNS
-    value: <CONTAINER DNS LABEL>
+    value: 'Atlanta-Webgoat-POC'
 
 # build steps to build and push WebGoat container to ACR
 stages:
