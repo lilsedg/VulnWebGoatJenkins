@@ -13,7 +13,7 @@ resources:
 variables:
   - group: acrDetails
   - name: dockerRegistryServiceConnection
-    value: <ACR_CONNECTION_NAME>
+    value: 'Sedgwick-dockerhub'
   - name: imageRepository
     value: 'webgoat-8.0'
   - name: dockerfilePath
@@ -23,7 +23,7 @@ variables:
   - name: resourceGroup
     value: <RESOURCE_GROUP_NAME>
   - name: acrRegistry
-    value: <ACR_ADDRESS>
+    value: 'registry.hub.docker.com'
   - name: subscriptionConnection
     value: <SUBCRIPTION_CONNECTION_NAME>
   - name: containerGroup
