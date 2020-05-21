@@ -21,7 +21,7 @@ variables:
   - name: tag
     value: '$(Build.BuildId)'
   - name: resourceGroup
-    value: <RESOURCE_GROUP_NAME>
+    value: 'rg-lab-projects-eastus'
   - name: acrRegistry
     value: 'registry.hub.docker.com'
   - name: subscriptionConnection
