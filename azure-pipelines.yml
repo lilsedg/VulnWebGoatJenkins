@@ -21,11 +21,11 @@ variables:
   - name: tag
     value: '$(Build.BuildId)'
   - name: resourceGroup
-    value: 'rg-lab-projects-eastus'
+    value: <Azure Resource Group>
   - name: acrRegistry
     value: 'registry.hub.docker.com'
   - name: subscriptionConnection
-    value: 'Visual Studio Enterprise'
+    value: <Azure Service Connection>
   - name: containerGroup
     value: 'Webgoat-Container-Group'
   - name: containerDNS
