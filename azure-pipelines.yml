@@ -3,27 +3,86 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+  branches:
+    include:
+    - master
 
 resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  - group: acrDetails
+  - name: dockerRegistryServiceConnection
+    value: <ACR_CONNECTION_NAME>
+  - name: imageRepository
+    value: 'webgoat-8.0'
+  - name: dockerfilePath
+    value: 'webgoat-server/Dockerfile'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: resourceGroup
+    value: <RESOURCE_GROUP_NAME>
+  - name: acrRegistry
+    value: <ACR_ADDRESS>
+  - name: subscriptionConnection
+    value: <SUBCRIPTION_CONNECTION_NAME>
+  - name: containerGroup
+    value: <CONTAINER GROUP>
+  - name: containerDNS
+    value: <CONTAINER DNS LABEL>
 
+# build steps to build and push WebGoat container to ACR
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build stage
   jobs:  
   - job: Build
-    displayName: Build
+    displayName: Build job
     pool:
       vmImage: 'ubuntu-latest'
+
     steps:
-    - task: Docker@2
-      displayName: Build an image
+    - task: Maven@1
+      displayName: Maven
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/webgoat-server/Dockerfile'
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        mavenVersionOption: 'Default'
+
+    - task: Docker@2
+      displayName: Build and push an WebGoat image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          latest
+# deploying to development stage
+- stage: DeployToDev
+  displayName: Deploy to Dev stage
+  dependsOn: Build
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    environment: 'WebGoat-Dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureCLI@1
+              displayName: Deploy to WebGoat container Dev ACI
+              inputs:
+                azureSubscription: $(subscriptionConnection)
+                scriptLocation: 'inlineScript'
+                inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --r
