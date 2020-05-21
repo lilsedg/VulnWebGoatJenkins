@@ -25,7 +25,7 @@ variables:
   - name: acrRegistry
     value: 'registry.hub.docker.com'
   - name: subscriptionConnection
-    value: 'Visual Studio Enterprise(d7106f86-a4e9-40ec-83d3-08b03cb7bcbf)'
+    value: 'Visual Studio Enterprise'
   - name: containerGroup
     value: 'Webgoat-Container-Group'
   - name: containerDNS
