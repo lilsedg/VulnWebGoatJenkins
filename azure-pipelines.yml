@@ -92,11 +92,14 @@ stages:
     displayName: Verification test
     pool:
       vmImage: 'ubuntu-latest'
-- task: AzSKSVTs@4
-  inputs:
-    ConnectedServiceNameARM: 'webGoatARM'
-    GenerateMethodParameterSetSelection: 'ResourceGroupName'
-    ResourceGroupName: 'CI-CD-Paid'
-    SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
-    EnableGSSscan: true
-    AggregateControlsStatus: true
+
+steps:
+  - task: AzSKSVTs@4
+    inputs:
+      ConnectedServiceNameARM: 'webGoatARM'
+      GenerateMethodParameterSetSelection: 'ResourceGroupName'
+      ResourceGroupName: 'CI-CD-Paid'
+      SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
+      EnableGSSscan: true
+      AggregateControlsStatus: true
+
