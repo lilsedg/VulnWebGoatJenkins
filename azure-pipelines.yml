@@ -27,7 +27,7 @@ variables:
   - name: subscriptionConnection
     value: 'webGoatARM'
   - name: containerGroup
-    value: 'Webgoat-Container-Group'
+    value: 'container-group-1'
   - name: containerDNS
     value: 'SedgwickWebGoatPOC'
 
