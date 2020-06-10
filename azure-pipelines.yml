@@ -93,7 +93,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
 
-steps:
+  steps:
   - task: AzSKSVTs@4
     inputs:
       ConnectedServiceNameARM: 'webGoatARM'
