@@ -82,3 +82,21 @@ stages:
                 azureSubscription: $(subscriptionConnection)
                 scriptLocation: 'inlineScript'
                 inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --registry-password $(acrPassword)'
+# Verification test
+- stage: verificationtest
+  displayName: Azure Secure DevOps
+  dependsOn: DeployToDev
+  condition: succeeded()
+  jobs:
+  - job: Verify
+    displayName: Verification test
+    pool:
+      vmImage: 'ubuntu-latest'
+- task: AzSKSVTs@4
+  inputs:
+    ConnectedServiceNameARM: 'webGoatARM'
+    GenerateMethodParameterSetSelection: 'ResourceGroupName'
+    ResourceGroupName: 'CI-CD-Paid'
+    SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
+    EnableGSSscan: true
+    AggregateControlsStatus: true
