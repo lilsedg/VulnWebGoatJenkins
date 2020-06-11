@@ -100,6 +100,4 @@ stages:
         GenerateMethodParameterSetSelection: 'ResourceGroupName'
         ResourceGroupName: 'CI-CD-Paid'
         SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
-        EnableGSSscan: true
-        AggregateControlsStatus: true
 
