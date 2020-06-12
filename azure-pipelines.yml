@@ -93,11 +93,12 @@ stages:
     displayName: Verification Test
   
     steps:
-    - task: AzSKSVTs@4
-      displayName: verification test
+    - task: azsdktm.AzSDK-task.custom-build-task.AzSKSVTs@4
+      displayName: 'AzSK_SVTs '
       inputs:
-        ConnectedServiceNameARM: 'webGoatARM'
-        GenerateMethodParameterSetSelection: 'ResourceGroupName'
+        ConnectedServiceNameARM: webGoatARM
+        GenerateMethodParameterSetSelection: ResourceGroupName
         ResourceGroupName: 'CI-CD-Paid'
         SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
+
 
