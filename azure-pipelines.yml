@@ -83,22 +83,5 @@ stages:
                 scriptLocation: 'inlineScript'
                 inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --registry-password $(acrPassword)'
 
-# Verification test
-- stage: verificationtest
-  displayName: Azure Secure DevOps
-  dependsOn: DeployToDev
-  condition: succeeded()
-  jobs:
-  - job: verificationtest
-    displayName: Verification Test
-  
-    steps:
-    - task: azsdktm.AzSDK-task.custom-build-task.AzSKSVTs@4
-      displayName: 'AzSK_SVTs '
-      inputs:
-        ConnectedServiceNameARM: webGoatARM
-        GenerateMethodParameterSetSelection: ResourceGroupName
-        ResourceGroupName: 'CI-CD-Paid'
-        SubscriptionId: '2c71b264-34bf-4900-aef4-7421daeeab14'
 
 
