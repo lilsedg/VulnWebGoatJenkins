@@ -21,7 +21,7 @@ variables:
   - name: acrRegistry
     value: 'azskwebgoatacrpaid.azurecr.io'
   - name: subscriptionConnection
-    value: 'webGoatARM'
+    value: 'WebgoatARM2'
   - name: containerGroup
     value: 'containergroup'
   - name: containerDNS
