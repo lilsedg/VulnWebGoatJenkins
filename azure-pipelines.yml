@@ -9,7 +9,7 @@ resources:
 variables:
   - group: acrDetails
   - name: dockerRegistryServiceConnection
-    value: 'webGoatACR'
+    value: 'WebgoatACR2'
   - name: imageRepository
     value: 'webgoat-8.0'
   - name: dockerfilePath
