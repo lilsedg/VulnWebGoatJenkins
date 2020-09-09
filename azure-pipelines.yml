@@ -17,9 +17,9 @@ variables:
   - name: tag
     value: '$(Build.BuildId)'
   - name: resourceGroup
-    value: 'CI-CD-Paid'
+    value: 'CICD-Paid'
   - name: acrRegistry
-    value: 'appsecacr.azurecr.io'
+    value: 'azskwebgoatacrpaid.azurecr.io'
   - name: subscriptionConnection
     value: 'webGoatARM'
   - name: containerGroup
