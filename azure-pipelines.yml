@@ -6,26 +6,31 @@ trigger:
 resources:
 - repo: self
 
+
+
 variables:
-  - group: acrDetails
-  - name: dockerRegistryServiceConnection
-    value: 'WebgoatACR2'
-  - name: imageRepository
-    value: 'webgoat-8.0'
-  - name: dockerfilePath
-    value: 'webgoat-server/Dockerfile'
-  - name: tag
-    value: '$(Build.BuildId)'
-  - name: resourceGroup
-    value: 'CICD-Paid'
-  - name: acrRegistry
-    value: 'azskwebgoatacrpaid.azurecr.io'
-  - name: subscriptionConnection
-    value: 'WebgoatARM3'
-  - name: containerGroup
-    value: 'containergroup'
-  - name: containerDNS
-    value: 'webgoatcontainer'
+  - group: dependency
+  - name: CycloneDX Python Generate SBOM
+    value: CycloneDX/gh-python-generate-sbom@v1.0.0
+# - group: acrDetails
+#  - name: dockerRegistryServiceConnection
+#    value: 'WebgoatACR2'
+#  - name: imageRepository
+#    value: 'webgoat-8.0'
+#  - name: dockerfilePath
+#    value: 'webgoat-server/Dockerfile'
+#  - name: tag
+#    value: '$(Build.BuildId)'
+#  - name: resourceGroup
+#    value: 'CICD-Paid'
+#  - name: acrRegistry
+#    value: 'azskwebgoatacrpaid.azurecr.io'
+#  - name: subscriptionConnection
+#    value: 'WebgoatARM3'
+#  - name: containerGroup
+#    value: 'containergroup'
+#  - name: containerDNS
+#    value: 'webgoatcontainer'
 
 # build steps to build and push WebGoat container to ACR
 stages:
