@@ -1,6 +1,11 @@
 pipeline {
-    agent { dockerfile true }
+    agent { image 'node:14-alpine' }
     stages {
+        stage('Agent Test') {
+            steps {
+                sh 'node-version'
+            }
+        }
         stage('build') {
             steps {
                 sh 'mvn --version'
@@ -9,11 +14,6 @@ pipeline {
                 always {
                     junit '**/target/surefire-reports/**/*.xml'
                 }
-            }
-        }
-        stage('test') {
-            steps {
-                sh 'node-version'
             }
         }
         stage('Publich Container') {
