@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage('Publich Container') {
+        stage('Publish Container') {
             when {
                 branch 'master'
             }
