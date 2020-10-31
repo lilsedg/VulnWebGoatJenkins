@@ -14,9 +14,6 @@ pipeline {
         
         stage('Build Container') {
             steps {
-                environment {
-                    DOCKER_HOST= 'tcp://127.0.0.1:4243'
-                }
                 sh '''
                   mvn -B docker:build
                 '''
