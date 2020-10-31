@@ -3,19 +3,18 @@ pipeline {
         docker { image 'node:14-alpine' }
     }
     stages {
+        stage('Agent Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+        
         stage('Maven Install') {
             steps {
                 sh '''
                  echo "PATH = ${PATH}"
                  echo "M2_HOME = ${M2_HOME}"
                 '''
-            }
-        }
-
-        stage('Agent Test') {
-            steps {
-                sh 'node --version'
-                sh 'svn --version'
             }
         }
         
