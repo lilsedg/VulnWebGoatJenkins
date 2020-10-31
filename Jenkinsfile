@@ -3,14 +3,13 @@ pipeline {
         docker { image 'node:14-alpine' }
     }
     stages {
-        stage('Agent Test') {
-            steps {
-                sh 'node-version'
-            }
-        }
         stage('build') {
             steps {
-                sh 'mvn --version'
+                sh '''
+                 echo "PATH = ${PATH}"
+                 ech "M2_HOME = ${M2_HOME}"
+                 mvn -B install
+                '''
             }
             post {
                 always {
@@ -18,6 +17,13 @@ pipeline {
                 }
             }
         }
+        stage('Agent Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
+        
         stage('Publish Container') {
             when {
                 branch 'master'
