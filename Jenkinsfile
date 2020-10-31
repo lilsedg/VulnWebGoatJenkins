@@ -20,14 +20,11 @@ pipeline {
         
         stage('Build Container') {
             steps {
-                maven(
-                    maven: 'Maven 3.6.1'
-                ) {
                 sh '''
                   cd webgoat-server
                   mvn -B docker:build
                 '''
-                }
+                
             }
         }
         
