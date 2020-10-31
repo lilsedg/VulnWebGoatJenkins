@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh '''
                  echo "PATH = ${PATH}"
-                 ech "M2_HOME = ${M2_HOME}"
+                 echo "M2_HOME = ${M2_HOME}"
                  mvn -B install
                 '''
             }
