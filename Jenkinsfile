@@ -20,7 +20,7 @@ pipeline {
         
         stage('Build container') {
             steps {
-                withMaven(
+                maven(
                     maven: 'Maven 3.6.1'
                 ) {
                 sh '''
