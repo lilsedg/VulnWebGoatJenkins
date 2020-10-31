@@ -95,9 +95,9 @@
     </mailingLists>
 
     <scm>
-        <url>https://github.com/WebGoat/WebGoat</url>
-        <connection>scm:git:git@github.com:WebGoat/WebGoat.git</connection>
-        <developerConnection>scm:git:git@github.com:WebGoat/WebGoat.git</developerConnection>
+        <url>https://github.com/lilsedg/VulnWebGoatJenkins</url>
+        <connection>scm:git:git@github.com:lilsedg/VulnwebGoatJenkins.git</connection>
+        <developerConnection>scm:git:git@github.com:lilsedg/VulnWebGoatJenkins.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -190,6 +190,22 @@
                     <suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                 </configuration>
+            </plugin>
+            <plugin>
+	         <groupId>com.spotify</groupId>
+	         <artifactId>docker-maven-plugin</artifactId>
+	         <version>0.4.11</version>
+	         <configuration>
+		         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+		         <dockerDirectory>src/main/docker</dockerDirectory>
+		         <resources>
+			         <resource>
+				         <targetPath>/</targetPath>
+				         <directory>${project.build.directory}</directory>
+				         <include>${project.build.finalName}.jar</include>
+			         </resource>
+		         </resources>
+	         </configuration>
             </plugin>
         </plugins>
     </build>
