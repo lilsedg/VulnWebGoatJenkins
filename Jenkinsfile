@@ -9,7 +9,7 @@ pipeline {
             }
         }
         
-        stage('Maven Install') {
+        stage('Path Decleration') {
             steps {
                 sh '''
                  echo "PATH = ${PATH}"
@@ -20,10 +20,14 @@ pipeline {
         
         stage('Build container') {
             steps {
+                withMaven(
+                    maven: 'Maven 3.6.1'
+                ) {
                 sh '''
                   cd webgoat-server
                   mvn -B docker:build
                 '''
+                }
             }
         }
                 
