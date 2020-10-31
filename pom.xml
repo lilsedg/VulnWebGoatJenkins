@@ -201,7 +201,7 @@
 		         <resources>
 			         <resource>
 				         <targetPath>/</targetPath>
-				         <directory>/src/main/docker</directory>
+				         <directory>/var/lib/jenkins/workspace/VulnWebGoatJenkins/src/main/docker</directory>
 				         <include>${project.build.finalName}.jar</include>
 			         </resource>
 		         </resources>
