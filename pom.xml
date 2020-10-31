@@ -197,11 +197,11 @@
 	         <version>0.4.9</version>
 	         <configuration>
 		         <imageName>lilsedg/vulnwebgoatjenkins</imageName>
-		         <dockerDirectory>/var/lib/jenkins/workspace/VulnWebGoatJenkins</dockerDirectory>
+		         <dockerDirectory>/var/lib/jenkins/workspace/VulnWebGoatJenkins/webgoat-server</dockerDirectory>
 		         <resources>
 			         <resource>
 				         <targetPath>/</targetPath>
-				         <directory>/var/lib/jenkins/workspace/VulnWebGoatJenkins</directory>
+				         <directory>/var/lib/jenkins/workspace/VulnWebGoatJenkins/webgoat-server</directory>
 				         <include>vulnwebgoatjenkins.jar</include>
 			         </resource>
 		         </resources>
