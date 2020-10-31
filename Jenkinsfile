@@ -15,7 +15,6 @@ pipeline {
         stage('Build Container') {
             steps {
                 sh '''
-                  cd webgoat-server
                   mvn -B docker:build
                 '''
                 
