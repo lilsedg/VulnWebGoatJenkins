@@ -197,11 +197,11 @@
 	         <version>1.0.0</version>
 	         <configuration>
 		         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-		         <dockerDirectory>${project.basedir}/src/docker</dockerDirectory>
+		         <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 		         <resources>
 			         <resource>
 				         <targetPath>/</targetPath>
-				         <directory>/VulnWebGoatJenkins</directory>
+				         <directory>/src/main/docker</directory>
 				         <include>${project.build.finalName}.jar</include>
 			         </resource>
 		         </resources>
