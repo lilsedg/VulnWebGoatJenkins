@@ -3,12 +3,6 @@ pipeline {
         docker { image 'maven:3-alpine' }
     }
     stages {
-        stage('Agent Test') {
-            steps {
-                sh 'svn --version'
-            }
-        }
-        
         stage('Path Decleration') {
             steps {
                 sh '''
