@@ -196,13 +196,13 @@
 	         <artifactId>docker-maven-plugin</artifactId>
 	         <version>1.0.0</version>
 	         <configuration>
-		         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-		         <dockerDirectory>${project.basedir}</dockerDirectory>
+		         <imageName>lilsedg/VulnWebGoatJenkins</imageName>
+		         <dockerDirectory>/var/lib/jenkins/workspace/VulnWebGoatJenkins</dockerDirectory>
 		         <resources>
 			         <resource>
 				         <targetPath>/</targetPath>
 				         <directory>/var/lib/jenkins/workspace/VulnWebGoatJenkins</directory>
-				         <include>${project.build.finalName}.jar</include>
+				         <include>VulnWebGoatJenkins.jar</include>
 			         </resource>
 		         </resources>
 	         </configuration>
