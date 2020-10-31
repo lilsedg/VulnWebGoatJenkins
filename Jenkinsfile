@@ -1,11 +1,11 @@
 pipeline {
     agent { 
-        docker { image 'node:14-alpine' }
+        docker { image 'maven:3-alpine' }
     }
     stages {
         stage('Agent Test') {
             steps {
-                sh 'node --version'
+                sh 'svn --version'
             }
         }
         
@@ -18,7 +18,7 @@ pipeline {
             }
         }
         
-        stage('Build container') {
+        stage('Build Container') {
             steps {
                 maven(
                     maven: 'Maven 3.6.1'
@@ -30,7 +30,17 @@ pipeline {
                 }
             }
         }
-                
+        
+        stage('Test Container') { 
+            steps {
+                sh 'mvn test' 
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml' 
+                }
+            }
+        }         
         
         stage('Publish Container') {
             when {
