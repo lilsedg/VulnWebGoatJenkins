@@ -19,7 +19,7 @@ pipeline {
             }
         }
         
-        Stage('Build container') {
+        stage('Build container') {
             steps {
                 sh '''
                   cd webgoat-server
