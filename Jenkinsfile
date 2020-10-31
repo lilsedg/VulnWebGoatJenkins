@@ -3,26 +3,31 @@ pipeline {
         docker { image 'node:14-alpine' }
     }
     stages {
-        stage('build') {
+        stage('Maven Install') {
             steps {
                 sh '''
                  echo "PATH = ${PATH}"
                  echo "M2_HOME = ${M2_HOME}"
-                 mvn -B install
                 '''
             }
-            post {
-                always {
-                    junit '**/target/surefire-reports/**/*.xml'
-                }
-            }
         }
+
         stage('Agent Test') {
             steps {
                 sh 'node --version'
                 sh 'svn --version'
             }
         }
+        
+        Stage('Build container') {
+            steps {
+                sh '''
+                  cd webgoat-server
+                  mvn -B docker:build
+                '''
+            }
+        }
+                
         
         stage('Publish Container') {
             when {
