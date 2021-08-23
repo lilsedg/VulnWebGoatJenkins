@@ -207,7 +207,7 @@
 		         </resources>
 	         </configuration>
             </plugin>
-	    <plugin>  
+	    <!--plugin>  
                  <groupId>org.owasp</groupId>  
                  <artifactId>dependency-check-maven</artifactId>  
                  <version>6.0.2</version>  
@@ -218,16 +218,16 @@
                         </goals>  
                      </execution>  
                   </executions>  
-                  <configuration>  
+                  <!--configuration>  
                     <!--failBuildOnCVSS>10</failBuildOnCVSS -->  
                     <!-- Generate all report formats -->  
-                    <format>ALL</format>  
+                    <!--format>ALL</format>  
                     <!-- Don't use Nexus Analyzer -->  
-                    <centralAnalyzerEnabled>false</centralAnalyzerEnabled>  
+                    <!--centralAnalyzerEnabled>false</centralAnalyzerEnabled>  
                     <!-- Am I the latest version? -->  
-                    <versionCheckEnabled>true</versionCheckEnabled>  
-                   </configuration>  
-              </plugin>  
+                    <!--versionCheckEnabled>true</versionCheckEnabled -->  
+                   <!--/configuration -->  
+              <!--/plugin -->  
         </plugins>
     </build>
 
