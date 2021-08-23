@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.owasp.webgoat</groupId>
-    <artifactId>webgoat-parent</artifactId>
+    <artifactId>webgoatArmorCode</artifactId>
     <packaging>pom</packaging>
     <version>v8.0.0.M26</version>
 
