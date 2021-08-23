@@ -136,8 +136,6 @@
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-	<sonar.projectKey>WebgoatArmorCode</sonar.projectKey>
-	<sonar.projectName>WebgoatArmorCode</sonar.projectName>
     </properties>
 
     <modules>
