@@ -28,7 +28,7 @@ logging.info('Script Version : ' + SCRIPT_VERSION)
 url_upload = 'https://app.armorcode.com/client/utils/s3/upload'
 
 ## Api key to secure the access of url_upload
-api_key = '<<please_insert_api_key_here>>'  ## Kindly download the API Key from ArmorCode website and place it here.
+api_key = '3dcff0c6-eec6-4800-bc31-e3a9b1b30816'  ## Kindly download the API Key from ArmorCode website and place it here.
 
 folder_name = r"/var/lib/jenkins/workspace/VulnWebGoatArmorCode-Pipeline"
 file_extension = ".xml"
