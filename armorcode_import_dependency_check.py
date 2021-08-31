@@ -31,7 +31,7 @@ url_upload = 'https://app.armorcode.com/client/utils/s3/upload'
 api_key = '3dcff0c6-eec6-4800-bc31-e3a9b1b30816'  ## Kindly download the API Key from ArmorCode website and place it here.
 
 folder_name = r"/var/lib/jenkins/workspace/VulnWebGoatArmorCode-Pipeline@2/target/"
-file_extension = ".xml"
+file_extension = "dependency-check-report.xml"
 
 ## Headers for accessing the upload url
 headers = {
