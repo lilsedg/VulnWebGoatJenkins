@@ -109,7 +109,7 @@ stages:
           i=0
               while [ $i -lt 30 ]
               do
-                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 8b6a68ab-bdd2-48af-9200-040751063444'  -d '{ "env": "Production", "product": "682", "subProduct": "1562", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 8b6a68ab-bdd2-48af-9200-040751063444'  -d '{ "env": "Production", "product": "768", "subProduct": "1852", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
                   status=$(jq -r '.status' result.json)
                   if [ $status = "HOLD" ]
                   then
