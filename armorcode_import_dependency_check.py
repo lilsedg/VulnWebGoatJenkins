@@ -44,8 +44,8 @@ headers = {
 ## Metadata of the scan tool
 data_json = {
     'env': "Production",
-    'product': 682,
-    'subProduct': 1562,
+    'product': 768,
+    'subProduct': 1852,
     'scanTool': "Dependency Check Scan",
     'tags': "",
     'fileName': ''
