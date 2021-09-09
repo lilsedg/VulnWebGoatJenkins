@@ -32,6 +32,9 @@ variables:
     value: <CONTAINER GROUP>
   - name: containerDNS
     value: <CONTAINER DNS LABEL>
+  - group: 42Crunch
+  - name: 42C_API_TOKEN
+    value: token
 
 # build steps to build and push WebGoat container to ACR
 stages:
