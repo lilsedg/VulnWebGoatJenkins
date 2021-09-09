@@ -77,9 +77,9 @@ stages:
         format: ALL
 
 #42 crunch API integration 
-    - task: APIContractSecurityAudit@2
-      inputs:
-        apiToken: '$(42C_API_TOKEN)'
+#    - task: APIContractSecurityAudit@2
+#      inputs:
+#        apiToken: '$(42C_API_TOKEN)'
         #logLevel: 
         #minScore: 
         #platformUrl: 
