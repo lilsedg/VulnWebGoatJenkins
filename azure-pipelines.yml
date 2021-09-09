@@ -128,28 +128,28 @@ stages:
                   fi
               done
 
-# deploying to development stage
-- stage: DeployToDev
-  displayName: Deploy to Dev stage
-  dependsOn: ArmorcodeCheck
-  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy job
-    pool:
-      vmImage: 'ubuntu-latest'
+# deploying to development stage - Skipping until we confrim Azure resourcing 
+#- stage: DeployToDev
+#  displayName: Deploy to Dev stage
+#  dependsOn: ArmorcodeCheck
+#  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
+#  jobs:
+#  - deployment: Deploy
+#    displayName: Deploy job
+#    pool:
+#      vmImage: 'ubuntu-latest'
 
-    environment: 'WebGoat-Dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: AzureCLI@1
-              displayName: Deploy to WebGoat container Dev ACI
-              inputs:
-                azureSubscription: $(subscriptionConnection)
-                scriptLocation: 'inlineScript'
-                inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --registry-password $(acrPassword)'
+#    environment: 'WebGoat-Dev'
+#    strategy:
+#      runOnce:
+#        deploy:
+#          steps:
+#            - task: AzureCLI@1
+#              displayName: Deploy to WebGoat container Dev ACI
+#              inputs:
+#                azureSubscription: $(subscriptionConnection)
+#                scriptLocation: 'inlineScript'
+#                inlineScript: 'az container create --resource-group $(resourceGroup) --name $(containerGroup) --image $(acrRegistry)/$(imageRepository):$(tag) --dns-name-label $(containerDNS) --ports 8080 --registry-username $(acrUsername) --registry-password $(acrPassword)'
 
 
 
