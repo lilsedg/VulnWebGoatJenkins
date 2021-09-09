@@ -8,29 +8,30 @@ resources:
 
 
 
+# CycloneDX POC - depricated
+#  - group: dependency
+#  - name: CycloneDX Python Generate SBOM
+#    value: CycloneDX/gh-python-generate-sbom@v1.0.0
 variables:
-  - group: dependency
-  - name: CycloneDX Python Generate SBOM
-    value: CycloneDX/gh-python-generate-sbom@v1.0.0
-# - group: acrDetails
-#  - name: dockerRegistryServiceConnection
-#    value: 'WebgoatACR2'
-#  - name: imageRepository
-#    value: 'webgoat-8.0'
-#  - name: dockerfilePath
-#    value: 'webgoat-server/Dockerfile'
-#  - name: tag
-#    value: '$(Build.BuildId)'
-#  - name: resourceGroup
-#    value: 'CICD-Paid'
-#  - name: acrRegistry
-#    value: 'azskwebgoatacrpaid.azurecr.io'
-#  - name: subscriptionConnection
-#    value: 'WebgoatARM3'
-#  - name: containerGroup
-#    value: 'containergroup'
-#  - name: containerDNS
-#    value: 'webgoatcontainer'
+  - group: acrDetails
+  - name: dockerRegistryServiceConnection
+    value: <ACR_CONNECTION_NAME>
+  - name: imageRepository
+    value: 'webgoat-8.0'
+  - name: dockerfilePath
+    value: 'webgoat-server/Dockerfile'
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: resourceGroup
+    value: <RESOURCE_GROUP_NAME>
+  - name: acrRegistry
+    value: <ACR_ADDRESS>
+  - name: subscriptionConnection
+    value: <SUBCRIPTION_CONNECTION_NAME>
+  - name: containerGroup
+    value: <CONTAINER GROUP>
+  - name: containerDNS
+    value: <CONTAINER DNS LABEL>
 
 # build steps to build and push WebGoat container to ACR
 stages:
@@ -55,20 +56,79 @@ stages:
         testResultsFiles: '**/TEST-*.xml'
         mavenVersionOption: 'Default'
 
-    - task: Docker@2
-      displayName: Build and push an WebGoat image to container registry
+#skipping upload for now until we get access to the container registry 
+    #- task: Docker@2
+    #  displayName: Build and push an WebGoat image to container registry
+    #  inputs:
+    #    command: buildAndPush
+    #    repository: $(imageRepository)
+    #    dockerfile: $(dockerfilePath)
+    #    containerRegistry: $(dockerRegistryServiceConnection)
+    #    tags: |
+    #      $(tag)
+    #      latest
+
+# OWASP Dependency Checker
+    - task: dependency-check-build-task@6
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-          latest
+        projectName: 'Webgoat'
+        scanPath: '**/*.jar'
+        format: ALL
+
+#42 crunch API integration 
+    - task: APIContractSecurityAudit@2
+      inputs:
+        apiToken: '$(42C_API_TOKEN)'
+        #logLevel: 
+        #minScore: 
+        #platformUrl: 
+        #shareEveryone: 
+
+# Amrocode Dependency Check results upload 
+    - task: PythonScript@0
+      inputs:
+        scriptSource: 'filePath'
+        scriptPath: 'armorcode_import_dependency_check.py'
+
+- stage: ArmorcodeCheck
+  displayName: ArmorCode Deploy Gate
+  dependsOn: Build
+  jobs: 
+  - job:
+    displayName: verify policy
+    pool:
+      vmImage: 'ubuntu-latest'
+      
+      steps: 
+      # Azure pipeline policy check 
+      - task: Bash@3
+        inputs:
+        targetType: 'inline'
+        script: |
+          i=0
+              while [ $i -lt 30 ]
+              do
+                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 8b6a68ab-bdd2-48af-9200-040751063444'  -d '{ "env": "Production", "product": "682", "subProduct": "1562", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+                  status=$(jq -r '.status' result.json)
+                  if [ $status = "HOLD" ]
+                  then
+                      sleep 10
+                      i=$(( $i + 1 ))
+                      if [ $i = 30 ]
+                      then
+                          exit 1
+                      else
+                          continue
+                      fi
+                  else
+                      break
+                  fi
+              done
+
 # deploying to development stage
 - stage: DeployToDev
   displayName: Deploy to Dev stage
-  dependsOn: Build
+  dependsOn: ArmorcodeCheck
   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
   jobs:
   - deployment: Deploy
