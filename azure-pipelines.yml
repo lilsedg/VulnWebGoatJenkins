@@ -48,16 +48,6 @@ stages:
 
     steps:
     
-#sonarqube variables
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'WebgoatArmorCode'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: '$(sonaqubeProjectKey)'
-        cliProjectName: '$(sonaqubeProjectKey)'
-        cliSources: '.'
-
     - task: Maven@1
       displayName: Maven
       inputs:
@@ -81,6 +71,20 @@ stages:
     #    tags: |
     #      $(tag)
     #      latest
+
+#sonarqube variables
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'WebgoatArmorCode'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: '$(sonaqubeProjectKey)'
+        cliProjectName: '$(sonaqubeProjectKey)'
+        cliSources: '.'
+        extraProperties: |
+          sonar.language=java
+          sonar.java.binaries=**/target/classes
+          sonar.exclusions=**/*.ts
 
     - task: SonarQubeAnalyze@4
 
