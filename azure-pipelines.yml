@@ -55,7 +55,6 @@ stages:
         scannerMode: 'Other'
         extraProperties: |
           sonar.language=java
-          sonar.java.binaries=**/target/classes
           sonar.exclusions=**/*.ts
 
     - task: Maven@3
