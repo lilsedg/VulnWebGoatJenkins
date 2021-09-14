@@ -45,6 +45,18 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
+    
+    #sonarqube 
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'WebgoatArmorCode'
+        scannerMode: 'MSBuild'
+        projectKey: 'WebgoatArmorCode'
+        projectName: 'WebgoatArmorCode'
+        extraProperties: |
+          sonar.language=java
+          sonar.exclusions=**/*.ts
+
     - task: Maven@1
       displayName: Maven
       inputs:
@@ -84,6 +96,8 @@ stages:
         #minScore: 
         #platformUrl: 
         #shareEveryone: 
+
+    - task: SonarQubeAnalyze@4
 
 # Amrocode Dependency Check results upload 
     - task: PythonScript@0
