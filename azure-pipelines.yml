@@ -48,17 +48,39 @@ stages:
 
     steps:
     
-    - task: Maven@1
-      displayName: Maven
+# Sonarqube Variables 
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'WebgoatArmorCode'
+        scannerMode: 'Other'
+        extraProperties: |
+          sonar.language=java
+          sonar.java.binaries=**/target/classes
+          sonar.exclusions=**/*.ts
+
+    - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
-        mavenOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.11'
-        jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
+
+#    - task: Maven@1
+#      displayName: Maven
+#      inputs:
+#        mavenPomFile: 'pom.xml'
+#        mavenOptions: '-Xmx3072m'
+#        javaHomeOption: 'JDKVersion'
+#        jdkVersionOption: '1.11'
+#        jdkArchitectureOption: 'x64'
+#        publishJUnitResults: true
+#        testResultsFiles: '**/TEST-*.xml'
+#        mavenVersionOption: 'Default'
 
 #skipping upload for now until we get access to the container registry 
     #- task: Docker@2
@@ -71,22 +93,6 @@ stages:
     #    tags: |
     #      $(tag)
     #      latest
-
-
-#sonarqube variables
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'WebgoatArmorCode'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: '$(sonaqubeProjectKey)'
-        cliProjectName: '$(sonaqubeProjectKey)'
-        extraProperties: |
-          sonar.language=java
-          sonar.java.binaries=**/target/classes
-          sonar.exclusions=**/*.ts
-
-    - task: SonarQubeAnalyze@4
 
 # OWASP Dependency Checker
     - task: dependency-check-build-task@6
