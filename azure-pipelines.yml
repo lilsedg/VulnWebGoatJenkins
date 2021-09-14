@@ -56,6 +56,7 @@ stages:
         extraProperties: |
           sonar.language=java
           sonar.exclusions=**/*.ts
+          report.export.path=sonar-report.json
 
     - task: Maven@3
       inputs:
@@ -123,8 +124,7 @@ stages:
     - task: PythonScript@0
       inputs:
         scriptSource: 'filePath'
-        scriptPath: 'armorcode_import_sonarqube_v1.0.py'
-        arguments: '--variableInScript $(Armorcode)'
+        scriptPath: 'armorcode_import_sonarqube.py'
 
 - stage: ArmorcodeCheck
   displayName: ArmorCode Deploy Gate
