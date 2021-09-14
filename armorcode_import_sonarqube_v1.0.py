@@ -28,7 +28,7 @@ logging.info('Script Version : ' + SCRIPT_VERSION)
 url_upload = 'https://app.armorcode.com/client/utils/s3/upload'
 
 ## Api key to secure the access of url_upload
-api_key = '<<please_insert_api_key_here>>'  ## Kindly download the API Key from ArmorCode website and place it here.
+api_key = '$(Armorcode)'  ## Kindly download the API Key from ArmorCode website and place it here.
 
 folder_name = r"/home/tools"
 file_extension = ".json"
