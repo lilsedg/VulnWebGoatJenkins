@@ -56,6 +56,8 @@ stages:
         extraProperties: |
           sonar.language=java
           sonar.exclusions=**/*.ts
+          analysis.mode=preview
+          issuesReport.html.enable=true
           report.export.path=sonar-report.json
 
     - task: Maven@3
