@@ -30,7 +30,7 @@ url_upload = 'https://app.armorcode.com/client/utils/s3/upload'
 ## Api key to secure the access of url_upload
 api_key = '9f93008a-9ec2-42be-aaf9-7ea95fdc1a9d'  ## Kindly download the API Key from ArmorCode website and place it here.
 
-folder_name = r"/home/vsts/work/1/"
+folder_name = r"/home/vsts/work/1/s/"
 file_extension = ".json"
 
 ## Headers for accessing the upload url
