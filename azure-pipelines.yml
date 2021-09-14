@@ -69,6 +69,10 @@ stages:
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
 
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
+
 #    - task: Maven@1
 #      displayName: Maven
 #      inputs:
