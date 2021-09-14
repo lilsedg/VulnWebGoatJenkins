@@ -52,10 +52,11 @@ stages:
     - task: SonarQubePrepare@4
       inputs:
         SonarQube: 'WebgoatArmorCode'
-        scannerMode: 'Other'
-        extraProperties: |
-          sonar.language=java
-          sonar.exclusions=**/*.ts
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: '$(sonaqubeProjectKey)'
+        cliProjectName: '$(sonaqubeProjectKey)'
+        cliSources: '.'
 
     - task: Maven@1
       displayName: Maven
@@ -67,7 +68,6 @@ stages:
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        sonarQubeRunAnalysis: true
         mavenVersionOption: 'Default'
 
 #skipping upload for now until we get access to the container registry 
@@ -81,6 +81,8 @@ stages:
     #    tags: |
     #      $(tag)
     #      latest
+
+    - task: SonarQubeAnalyze@4
 
 # OWASP Dependency Checker
     - task: dependency-check-build-task@6
