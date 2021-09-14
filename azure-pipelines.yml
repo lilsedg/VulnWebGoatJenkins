@@ -66,8 +66,8 @@ stages:
         jdkVersionOption: '1.11'
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
-        sonarQubeRunAnalysis: true
         testResultsFiles: '**/TEST-*.xml'
+        sonarQubeRunAnalysis: true
         mavenVersionOption: 'Default'
 
 #skipping upload for now until we get access to the container registry 
