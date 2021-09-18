@@ -122,11 +122,7 @@ stages:
         scriptSource: 'filePath'
         scriptPath: 'armorcode_import_dependency_check.py'
 
-#Armorcode Sonarqube upload 
-    - task: PythonScript@0
-      inputs:
-        scriptSource: 'filePath'
-        scriptPath: 'armorcode_import_sonarqube.py'
+#Armorcode Sonarqube upload hasbeen depricated by the Sonar community
 
 - stage: ArmorcodeCheck
   displayName: ArmorCode Deploy Gate
@@ -146,7 +142,7 @@ stages:
           i=0
               while [ $i -lt 30 ]
               do
-                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 8b6a68ab-bdd2-48af-9200-040751063444'  -d '{ "env": "Production", "product": "768", "subProduct": "1852", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 2eea3807-07c2-4d93-8bd1-ca4385a76cde'  -d '{ "env": "Production", "product": "768", "subProduct": "1852", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
                   status=$(jq -r '.status' result.json)
                   if [ $status = "HOLD" ]
                   then
