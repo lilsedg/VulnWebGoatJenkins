@@ -107,6 +107,11 @@ stages:
         scanPath: '**/*.jar'
         format: ALL
 
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/dependency-check-junit.xml'
+        testRunTitle: '$(Build.BuildId)'
 #42 crunch API integration 
 #    - task: APIContractSecurityAudit@2
 #      inputs:
@@ -123,41 +128,30 @@ stages:
         scriptPath: 'armorcode_import_dependency_check.py'
 
 #Armorcode Sonarqube upload hasbeen depricated by the Sonar community
-
-- stage: ArmorcodeCheck
-  displayName: ArmorCode Deploy Gate
-  dependsOn: Build
-  jobs: 
-  - job:
-    displayName: verify policy
-    pool:
-      vmImage: 'ubuntu-latest'
-      
-      steps: 
-      # Azure pipeline policy check 
-      - task: Bash@3
-        inputs:
+#bringing the policy checkk up
+    - task: Bash@3
+      inputs:
         targetType: 'inline'
         script: |
           i=0
-              while [ $i -lt 30 ]
-              do
-                  curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 2eea3807-07c2-4d93-8bd1-ca4385a76cde'  -d '{ "env": "Production", "product": "768", "subProduct": "1852", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
-                  status=$(jq -r '.status' result.json)
-                  if [ $status = "HOLD" ]
-                  then
-                      sleep 10
-                      i=$(( $i + 1 ))
-                      if [ $i = 30 ]
-                      then
-                          exit 1
-                      else
-                          continue
-                      fi
-                  else
-                      break
-                  fi
-              done
+                        while [ $i -lt 30 ]
+                        do
+                            curl --location --request POST 'https://app.armorcode.com/client/buildvalidation' --header 'Content-Type: application/json' --header 'Authorization: Bearer 2eea3807-07c2-4d93-8bd1-ca4385a76cde'  -d '{ "env": "Production", "product": "768", "subProduct": "1852", "buildTool":"AZURE_PIPELINE", "buildNumber": "$(Build.BuildId)"}' > result.json
+                            status=$(jq -r '.status' result.json)
+                            if [ $status = "HOLD" ]
+                            then
+                                sleep 10
+                                i=$(( $i + 1 ))
+                                if [ $i = 30 ]
+                                then
+                                    exit 1
+                                else
+                                    continue
+                                fi
+                            else
+                                break
+                            fi
+                        done
 
 # deploying to development stage - Skipping until we confrim Azure resourcing 
 #- stage: DeployToDev
