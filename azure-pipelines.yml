@@ -7,7 +7,7 @@ resources:
 - repo: self
 
 
-
+#test change
 # CycloneDX POC - depricated
 #  - group: dependency
 #  - name: CycloneDX Python Generate SBOM
